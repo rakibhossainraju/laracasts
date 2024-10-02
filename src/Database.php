@@ -32,17 +32,3 @@ class Database {
         return $statement->fetch();
     }
 }
-//$config = include "./config.php";
-
-//$posts_db = new Database($config);
-
-//$value = $posts_db->queryOne([
-//    'table_name' => 'users',
-//    'field_name' => 'name',
-//    'condition_name' => 'id',
-//    'condition' => '=',
-//    'condition_value' => $_GET['id'] || 1,
-//]);
-//
-//dd($value);
-//dd($posts_db->queryAll("SELECT * FROM notes"), true);

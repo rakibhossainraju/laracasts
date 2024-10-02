@@ -8,6 +8,7 @@ $routes = [
     "/about" => "./controllers/about.php",
     "/contact" => "./controllers/contact.php",
     "/notes" => "./controllers/notes.php",
+    "/note" => "./controllers/note.php",
 ];
 
 function routeToController($path, $routes) 
@@ -25,3 +26,5 @@ function abort($status = 404)
     include "./views/404.php";
     die();
 }
+?>
+<script defer src='helper/reload.js' type='text/javascript'></script>

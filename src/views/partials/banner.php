@@ -4,6 +4,8 @@ $heading = [
   "/home" => "Home",
   "/about" => "About",
   "/contact" => "Contact",
+  "/notes" => "My Notes",
+  "/note" => "My Note",
 ];
 ?>
 
