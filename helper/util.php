@@ -1,9 +1,13 @@
 <?php
 
-function dd($value) {
-    echo "<pre>";
-    echo var_dump($value);
-    echo "</pre>";
+function dd($value, $should_print_r = false) {
+    if($should_print_r) {
+        echo print_r($value);
+    } else {
+        echo "<pre>";
+        echo var_dump($value);
+        echo "</pre>";
+    }
     die;
 }
 

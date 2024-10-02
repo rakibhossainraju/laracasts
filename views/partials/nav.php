@@ -3,13 +3,14 @@
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center">
         <div class="flex-shrink-0">
-          <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+          <img class="h-8 w-8" src="https://tailwindui.com/plus/img/logos/mark.svg?color=blue&shade=500" alt="Your Company">
         </div>
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
             <a href="/" class="<?= (urlIs("/") || urlIs("/home"))? "bg-gray-900 text-white": ""; ?> rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Home</a>
             <a href="/about" class="<?= urlIs("/about") ? "bg-gray-900 text-white": ""; ?> rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">About</a>
             <a href="/contact" class="<?= urlIs("/contact") ? "bg-gray-900 text-white": ""; ?> rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact</a>
+            <a href="/notes" class="<?= urlIs("/notes") ? "bg-gray-900 text-white": ""; ?> rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Notes</a>
           </div>
         </div>
       </div>
