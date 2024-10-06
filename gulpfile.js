@@ -1,51 +1,112 @@
 import gulp from "gulp";
-import {WebSocketServer} from 'ws';
-import open from "open";
-import { exec } from "child_process";
+import { spawn } from "child_process"; // Use spawn instead of exec
+import WebSocket, { WebSocketServer } from "ws";
+import chalk from "chalk";
+import { log } from "console";
 
-const wss = new WebSocketServer({ port: 3001 });
-const PORT = 5000;
+class PhpServerManager {
+  #phpServer;
+  constructor(PORT = 5000) {
+    this.PORT = PORT;
+    this.#phpServer = spawn("php", ["-S", `localhost:${this.PORT}`, "-t", "src/"]);
+    this.#initServer();
+  }
 
-exec(`php -S localhost:${PORT} -t src/`, (err, stdout, stderr) => {
-    if (err) {
-        console.error(err);
-        return;
-    }
-    console.log(stdout);
-    console.error(stderr);
-});
-const handleExit = () => {
-    console.log('Stopping PHP server...');
-    phpServer.kill();  // Kills the PHP server process
-    process.exit();
+  #initServer() {
+    this.#phpServer.stderr.on("data", this.#onData);
+    this.#phpServer.stderr.on("error", this.#onError);
+    
+    this.#phpServer.stdout.on("data", this.#onData);
+    this.#phpServer.stdout.on("error", this.#onError);
+    
+
+    this.#phpServer.on("close", this.#onClose);
+    this.killServerProcess();
+  }
+
+  #onData = (data) => {
+    log(chalk.green(data.toString()));
+  };
+
+  #onClose = (code) => {
+    log(chalk.yellow(`PHP server exited with code: ${code}`));
+  };
+
+  #onError = (err) => {
+    console.error(chalk.red(err.toString()));
+  };
+
+  terminateServer(code) {
+    log("Stopping PHP server...");
+    this.#phpServer.kill();
+    process.exit(code);
+  }
+
+  killServerProcess() {
+    process.on("SIGINT", () => this.terminateServer(0));
+    process.on("SIGTERM", () => this.terminateServer(0));
+    process.on("uncaughtException", (err) => {
+      console.error(chalk.red("Uncaught Exception:", err));
+      this.terminateServer(1);
+    });
+  }
 }
-// Handle process exit signals
-process.on("SIGINT", handleExit);   // For Ctrl+C in terminal
-process.on("SIGTERM", handleExit);  // For kill commands
-process.on("exit", handleExit);     // On normal process exit
 
-wss.on('connection', ws => {
-    console.log('Client connected');
-    ws.on('message', message => {
-        console.log('Received: %s', message);
+class WebSocketManager {
+  constructor(PORT = 3001) {
+    this.WSS = new WebSocketServer({ port: PORT });
+    this.#connectWSS();
+  }
+
+  #connectWSS() {
+    this.WSS.on("connection", this.#handleConnection);
+  }
+
+  #handleConnection = (ws) => {
+    log("Client connected");
+    ws.on("message", this.#handleMessage);
+  };
+
+  #handleMessage = (msg) => {
+    console.log("Received: %s", msg);
+  };
+
+  sendReloadSignal() {
+    this.WSS.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send("reload");
+      }
     });
-});
+  }
+}
 
-gulp.task('serve', () => {
-    // Watch for PHP file changes
-    gulp.watch("**/*.php").on("change", () => {
-        console.log('PHP file changed, sending reload signal...');
+class ManageTasks {
+  #wss;
+  #phpServer;
 
-        // Send reload signal to WebSocket clients
-        wss.clients.forEach(client => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send('reload');
-            }
-        });
-    });
+  constructor() {
+    this.#wss = new WebSocketManager();
+    this.#phpServer = new PhpServerManager(9000);
+    gulp.task("serve", this.#init);
+    gulp.task("default", gulp.series("serve"));
+  }
 
-    // Automatically open 'hello-world.test' in the browser
-    open(`http://localhost:${PORT}`);  // This will open the browser to the specified URL
-});
+  #init = (done) => {
+    try {
+      gulp.watch("**/*.php").on("change", this.#handleChange);
+    } catch (error) {
+      console.error(chalk.red("Error initializing ManageTasks:", error));
+      this.#phpServer.terminateServer(1);
+    } finally {
+      done();
+    }
+  };
 
-gulp.task('default', gulp.series('serve'));
+  #handleChange = () => {
+    console.log("PHP file changed, sending reload signal...");
+    this.#wss.sendReloadSignal();
+  };
+}
+
+// RUN GULP 
+new ManageTasks();
