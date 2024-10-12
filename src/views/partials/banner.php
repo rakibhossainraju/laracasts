@@ -7,6 +7,9 @@ $heading = [
   "/notes" => "My Notes",
   "/note" => "My Note",
 ];
+if (!isset($heading[$path])) {
+  return; 
+}
 ?>
 
 <header class="bg-white shadow">

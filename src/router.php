@@ -2,14 +2,7 @@
 
 $uri = $_SERVER['REQUEST_URI'];
 $path = parse_url($uri)['path'] ?? "/";
-$routes = [
-    "/" => "./controllers/home.php",
-    "/home" => "./controllers/home.php",
-    "/about" => "./controllers/about.php",
-    "/contact" => "./controllers/contact.php",
-    "/notes" => "./controllers/notes.php",
-    "/note" => "./controllers/note.php",
-];
+$routes = include_once "./routes.php";
 
 function routeToController($path, $routes) 
 {
@@ -27,4 +20,3 @@ function abort($status = 404)
     die();
 }
 ?>
-<script defer src='helper/reload.js' type='text/javascript'></script>

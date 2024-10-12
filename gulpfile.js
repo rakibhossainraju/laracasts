@@ -4,6 +4,10 @@ import WebSocket, { WebSocketServer } from "ws";
 import chalk from "chalk";
 import { log } from "console";
 
+console.warn = function(message) {
+  console.log(chalk.yellow(message));
+}
+
 class PhpServerManager {
   #phpServer;
   constructor(PORT = 5000) {
@@ -63,12 +67,12 @@ class WebSocketManager {
   }
 
   #handleConnection = (ws) => {
-    log("Client connected");
+    console.warn("Client connected");
     ws.on("message", this.#handleMessage);
   };
 
   #handleMessage = (msg) => {
-    console.log("Received: %s", msg);
+    console.warn("Received: %s", msg);
   };
 
   sendReloadSignal() {

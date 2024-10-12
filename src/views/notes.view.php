@@ -8,7 +8,8 @@
                         <?= $note["note"]; ?>
                     </a>
                 </li>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+                <a href="/note/create" class="px-6 py-3 rounded bg-blue-500 mt-5 text-500 inline-block text-white">Create Note</a>
         </ul>
     </div>
 </main>
