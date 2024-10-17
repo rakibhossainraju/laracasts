@@ -26,4 +26,4 @@ if (!$note) {
 }
 
 
-include "./views/notes/note.view.php";
+include "./views/notes/index.view.php";

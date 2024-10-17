@@ -35,4 +35,4 @@ if($_SERVER['REQUEST_METHOD'] === "POST") {
         $note = "";
     }
 }
-include "./views/notes/note-create.view.php";
+include "./views/notes/create.view.php";
