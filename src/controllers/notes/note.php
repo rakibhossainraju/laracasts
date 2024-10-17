@@ -11,9 +11,8 @@ $note = $db->queryOne([
     'condition' => '=',
     'condition_value' => $_GET['id'] ?? 1,
 ]);
-
-const CURRENT_USER_ID = 1;
-
+const CURRENT_USER_ID = 5;
+//dd($note);
 if (!$note) {
     $note = [
         'note' => 'No note Found'
@@ -27,4 +26,4 @@ if (!$note) {
 }
 
 
-include "./views/note.view.php";
+include "./views/notes/note.view.php";

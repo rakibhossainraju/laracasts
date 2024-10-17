@@ -5,7 +5,7 @@ return [
     "/home" => "./controllers/home.php",
     "/about" => "./controllers/about.php",
     "/contact" => "./controllers/contact.php",
-    "/notes" => "./controllers/notes.php",
-    "/note/create" => "./controllers/note-create.php",
-    "/note" => "./controllers/note.php",
+    "/notes" => "./controllers/notes/notes.php",
+    "/note/create" => "./controllers/notes/note-create.php",
+    "/note" => "./controllers/notes/note.php",
 ];

@@ -31,6 +31,21 @@ class Database {
 
         return $statement->fetch();
     }
+   // Insert one row into the table
+    public function insert($query_data = []): bool|string
+    {
+        try {
+            $query_string = "INSERT INTO {$query_data['table_name']} ({$this->convertQueryArrToStr($query_data['field_names'])})
+                             VALUES ({$this->convertQueryArrToStr(array_fill(0, count($query_data['field_names']), '?'))})";
+//            dd($query_string);
+            $statement = $this->connection->prepare($query_string);
+
+            $statement->execute($query_data['values']);
+            return $statement->rowCount() > 0; // Returns true if the row was inserted successfully
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 
     private function convertQueryArrToStr($field_name)
     {

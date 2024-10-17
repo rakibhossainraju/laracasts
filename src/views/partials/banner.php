@@ -5,7 +5,7 @@ $heading = [
   "/about" => "About",
   "/contact" => "Contact",
   "/notes" => "My Notes",
-  "/note" => "My Note",
+  "/notes" => "My Note",
 ];
 if (!isset($heading[$path])) {
   return; 

@@ -8,4 +8,4 @@ $notes = $db->queryAll("SELECT * FROM notes");
 
 
 //dd($notes, true);
-include "./views/notes.view.php";
+include "./views/notes/notes.view.php";
