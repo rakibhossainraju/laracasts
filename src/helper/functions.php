@@ -11,6 +11,17 @@ function dd($value, $should_print_r = false) {
     die;
 }
 
-function urlIs($value) {
+function urlIs($value): bool
+{
     return $_SERVER["REQUEST_URI"] === $value;
+}
+
+function base_path($path): string
+{
+    return BASE_PATH . $path;
+}
+
+function view($path): string
+{
+    return base_path("views/{$path}");
 }

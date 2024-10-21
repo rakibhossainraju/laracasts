@@ -12,7 +12,7 @@ class PhpServerManager {
   #phpServer;
   constructor(PORT = 5000) {
     this.PORT = PORT;
-    this.#phpServer = spawn("php", ["-S", `localhost:${this.PORT}`, "-t", "src/"]);
+    this.#phpServer = spawn("php", ["-S", `localhost:${this.PORT}`, "-t", "src/public"]);
     this.#initServer();
   }
 
