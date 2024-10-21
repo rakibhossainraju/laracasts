@@ -1,2 +1,2 @@
 <?php 
-include "./views/about.view.php";
+include view("about.view.php");

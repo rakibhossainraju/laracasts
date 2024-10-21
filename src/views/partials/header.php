@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning PhP</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="./reload.js" type='text/javascript'></script>
+    <script defer src="/reload.js" type='text/javascript'></script>
 </head>
 <body class="h-full">
 <div class="min-h-full">

@@ -1,5 +1,4 @@
 <?php
-const BASE_PATH = __DIR__ . "/../";
 $routes = include_once base_path("routes.php");
 $uri = $_SERVER['REQUEST_URI'];
 $path = parse_url($uri)['path'] ?? "/";

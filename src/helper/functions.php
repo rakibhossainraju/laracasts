@@ -1,6 +1,7 @@
 <?php
 
-function dd($value, $should_print_r = false) {
+function dd($value, $should_print_r = false): void
+{
     if($should_print_r) {
         echo print_r($value);
     } else {

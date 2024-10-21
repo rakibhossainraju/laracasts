@@ -1,11 +1,10 @@
 <?php
-include_once "./Database.php";
 
-$config = include_once "./config.php";
+$config = include_once base_path("config.php");
 $db = new Database($config);
 
 $notes = $db->queryAll("SELECT * FROM notes");
 
 
 //dd($notes, true);
-include "./views/notes/notes.view.php";
+include view("notes/notes.view.php");

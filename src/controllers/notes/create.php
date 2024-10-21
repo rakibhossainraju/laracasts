@@ -1,7 +1,5 @@
 <?php
-include_once "./Database.php";
-include_once "./Validator.php";
-$config = include_once "./config.php";
+$config = include_once base_path("config.php");
 $db = new Database($config);
 
 if($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -35,4 +33,4 @@ if($_SERVER['REQUEST_METHOD'] === "POST") {
         $note = "";
     }
 }
-include "./views/notes/create.view.php";
+include view("notes/create.view.php");

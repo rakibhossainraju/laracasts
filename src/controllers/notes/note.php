@@ -1,7 +1,5 @@
 <?php
-include_once "./Database.php";
-
-$config = include_once "./config.php";
+$config = include_once base_path("config.php");
 $db = new Database($config);
 
 $note = $db->queryOne([
@@ -26,4 +24,4 @@ if (!$note) {
 }
 
 
-include "./views/notes/index.view.php";
+include view("notes/index.view.php");
