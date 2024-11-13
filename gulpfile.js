@@ -29,7 +29,7 @@ class PhpServerManager {
   }
 
   #onData = (data) => {
-    log(chalk.green(data.toString()));
+    log(data.toString());
   };
 
   #onClose = (code) => {

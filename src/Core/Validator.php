@@ -1,4 +1,5 @@
 <?php
+namespace Core;
 class Validator {
     public function string($validation_fields): bool|string
     {

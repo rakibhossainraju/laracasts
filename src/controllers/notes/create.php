@@ -1,6 +1,10 @@
 <?php
+use Core\Database;
+use Core\Validator;
+
 $config = include_once base_path("config.php");
 $db = new Database($config);
+
 
 if($_SERVER['REQUEST_METHOD'] === "POST") {
     $note = $_POST['note'];

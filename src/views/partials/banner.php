@@ -5,8 +5,9 @@ $heading = [
   "/about" => "About",
   "/contact" => "Contact",
   "/notes" => "My Notes",
-  "/notes" => "My Note",
+  "/note" => "My Note",
 ];
+$path = parse_url($uri)['path'] ?? "/";
 if (!isset($heading[$path])) {
   return; 
 }
